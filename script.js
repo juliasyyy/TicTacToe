@@ -1,7 +1,9 @@
+
 let board = document.getElementById("board");
 let prev = document.getElementById("prev");
 let show = document.getElementById("show");
 let next = document.getElementById("next");
+ 
 
 let gameBoard = [
     ['', '', ''],
@@ -12,6 +14,7 @@ let gameBoard = [
 let state = [];
 
 let moves = 0;
+let current =-1;
 
 let playerTurn1 = true;
 
@@ -203,7 +206,18 @@ if(
 { window.alert ("o won");document.getElementById("show").style.display = "block";
 }
 
-else if (moves == 9) { window.alert("It's a tie!");document.getElementById("show").style.display = "block";
+else if((moves == 9) && (gameBoard[0][0] == "O" ||  gameBoard[0][0]==  "X" )
+     && (gameBoard[0][1] == "O" || gameBoard[0][1] ==  "X")
+     && (gameBoard[0][2] == "O" ||  gameBoard[0][2] =="X")
+     && (gameBoard[1][0] == "O" ||gameBoard[1][0] =="X")
+     && (gameBoard[1][1] == "O" || gameBoard[1][1] == "X")
+     && (gameBoard[1][2] == "O" || gameBoard[1][2] == "X")
+     && (gameBoard[2][0] == "O" || gameBoard[2][0] == "X")
+     && (gameBoard[2][1] == "O" || gameBoard[2][1] =="X")
+     && (gameBoard[2][2] == "O" || gameBoard[2][2] == "X")
+
+)
+ { window.alert("It's a tie!");document.getElementById("show").style.display = "block";
 
 }
 
@@ -224,6 +238,9 @@ function reflectBoard(index){
     for(let grid = 0; grid < moveString.length; grid++){
         document.getElementById(`box${grid}`).textContent = moveString[grid];
     }
+
+
+    
 }
 
 //==============================
@@ -308,14 +325,28 @@ if(
 
 }
 
+//-==========previous ==============
+function prevBoard(){
+    if(moves>0){
+        moves--; 
+        reflectBoard(state[moves]);
+    }
+}
+
+function nextBoard(){
+    if(moves>0){
+        moves++; 
+        reflectBoard(state[moves]);
+    }
+}
 
 
 
 
 //=============================================
-prev.addEventListener("click", () => reflectBoard(7) );
+prev.addEventListener("click", () => prevBoard() );
 reset.addEventListener("click",() => resetBoard());
-next.addEventListener("click",() => reflectBoard(8));
+next.addEventListener("click",() => nextBoard());
 
 function hide() {
     if (show.style.display === "block") {
@@ -325,6 +356,14 @@ function hide() {
     
 
 createBoard();
+
+
+
+
+
+
+
+
 
 
 
